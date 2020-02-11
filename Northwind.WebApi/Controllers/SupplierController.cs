@@ -9,58 +9,54 @@ using System.Threading.Tasks;
 
 namespace Northwind.WebApi.Controllers
 {
-    [Route("api/Customer")]
+    [Produces("application/json")]
+    [Route("api/supplier")]
     [Authorize]
-    public class CustomerController: Controller
+    public class SupplierController:Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CustomerController(IUnitOfWork unitOfWork)
+        public SupplierController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetById(int id)
         {
             //realizamos la busqueda del customer por id
-            return Ok(_unitOfWork.Customer.GetById(id));
+            return Ok(_unitOfWork.Supplier.GetById(id));
         }
-
-
         [HttpGet]
-        [Route("GetPaginatedCustomer/{page:int}/{rows:int}")]
-        public IActionResult GetPaginatedCustomer(int page,int rows)
+        [Route("GetPaginatedSupplier/{page:int}/{rows:int}")]
+        public IActionResult GetPaginatedCustomer(int page, int rows)
         {
             //realizamos la busqueda del customer por id
-            return Ok(_unitOfWork.Customer.CustomerPageList(page,rows));
+            return Ok(_unitOfWork.Supplier.SupplierPageList(page, rows));
         }
         [HttpPost]
-        public IActionResult Post([FromBody]Customer customer)
+        public IActionResult Post([FromBody]Supplier supplier)
         {
             if (!ModelState.IsValid) return BadRequest();
             else
-                return Ok(_unitOfWork.Customer.Insert(customer));
+                return Ok(_unitOfWork.Supplier.Insert(supplier));
         }
         [HttpPut]
-        public IActionResult Put([FromBody]Customer customer)
+        public IActionResult Put([FromBody]Supplier supplier)
         {
-            if (ModelState.IsValid && _unitOfWork.Customer.Update(customer))
+            if (ModelState.IsValid && _unitOfWork.Supplier.Update(supplier))
             {
-                return Ok( new { Message ="El Cliente fue Actualizado"});
+                return Ok(new { Message = "El Proveedor fue Actualizado" });
             }
             return BadRequest();
         }
 
         [HttpDelete]
-        public IActionResult Delete([FromBody]Customer customer)
+        public IActionResult Delete([FromBody]Supplier supplier)
         {
-            if (customer.Id > 0)
-                return Ok(_unitOfWork.Customer.Delete(customer));
+            if (supplier.Id > 0)
+                return Ok(_unitOfWork.Supplier.Delete(supplier));
             return BadRequest();
         }
 
-
     }
 }
-

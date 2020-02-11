@@ -1,4 +1,5 @@
 ﻿using Dapper;
+
 using Northwind.Models;
 using Northwind.Repositories;
 using System;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace Northwind.DataAccess
 {
+    
     public class CustomerRepository: Repository<Customer>, ICustomerRepository
     {
         /// <summary>

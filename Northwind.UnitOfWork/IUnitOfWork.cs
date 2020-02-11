@@ -9,5 +9,7 @@ namespace Northwind.UnitOfWork
         /// repositorio para customer solo se utiliza la propiedad get
         /// </summary>
          ICustomerRepository Customer{ get;}
+         IUserRepository User { get; }
+         ISuplierRepository Supplier { get; }
     }
 }
